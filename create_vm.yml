@@ -35,7 +35,6 @@
     - name: Add {{ rhv_vm_hostname }} from hosts file
       delegate_to: localhost
       connection: local
-      become: true
       vars:
         rhv_vm_hostname: "{{ rhv_vm_basename }}-{{ item  }}"
         rhv_vm_public_ip: "{{ ip_range }}{{ item }}" 
