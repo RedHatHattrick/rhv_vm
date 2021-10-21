@@ -1,6 +1,6 @@
 ---
 
-- hosts: all
+- hosts: rhvm
   user: root
   gather_facts: no
   vars:
@@ -8,6 +8,7 @@
     rhv_vm_auth_username: admin@internal
     rhv_vm_auth_password: Redhat1993
     rhv_vm_cluster: Default
+    domain: hattrick.lab
     rhv_vm_basename: rhel-vm
     server_cnt: 2
   tasks:
@@ -24,8 +25,19 @@
        tasks_from: teardown_rhv_vm
      with_sequence: start=1 end={{ server_cnt }}
 
-   - name: Login to RHV
+   - name: Revoke Token
      include_role:
        name: redhatgov.rhv_vm
        tasks_from: revoke_token
 
+   - name: Remove {{ rhv_vm_hostname }} from hosts file
+     delegate_to: localhost
+     connection: local
+     become: true
+     vars:
+       rhv_vm_hostname: "{{ rhv_vm_basename }}-{{ item }}"
+     lineinfile:
+       path: /etc/hosts
+       state: absent
+       regexp: '.*{{ rhv_vm_hostname }}.{{ domain }} {{ rhv_vm_hostname }}'
+     with_sequence: start=1 end={{ server_cnt }}

@@ -1,0 +1,35 @@
+---
+
+- hosts: rhvm
+  user: root
+  gather_facts: no
+  vars:
+    domain: hattrick.lab
+    rhv_vm_auth_url: https://rhvm.hattrick.lab/ovirt-engine/api
+    rhv_vm_auth_username: admin@internal
+    rhv_vm_auth_password: Redhat1993
+    rhv_vm_template: rhel84-template
+    rhv_vm_instance_type: small
+    rhv_vm_basename: rhel-vm-test
+    server_cnt: 1
+  tasks:
+    - name: Authenticate to engine to obtain SSO token
+      include_role:
+        name: redhatgov.rhv_vm
+        tasks_from: login
+
+    - name: Get NIC facts
+      ovirt_nic_info:
+        auth: "{{ ovirt_auth }}"
+        vm: rhel-vm-wip-1
+        fetch_nested: yes
+      register: rhv_vm
+
+    - debug:
+        msg: "{{ rhv_vm.ovirt_nics }}"
+
+    - name: Revoke SSO token
+      include_role:
+        name: redhatgov.rhv_vm
+        tasks_from: revoke_token
+

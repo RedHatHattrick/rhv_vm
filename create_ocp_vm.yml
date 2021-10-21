@@ -1,0 +1,21 @@
+---
+
+- name: OCP Virt 
+  hosts: sno.hattrick.lab
+  user: core
+  become: yes
+  tasks:
+    - name: Create OCP VM
+      kubevirt_vm:
+        namespace: virtualmachines
+        name: vm1
+        state: running
+        cpu_cores: 1
+        memory: 4Gi
+        disks:
+          - name: containerdisk
+            volume:
+              containerDisk:
+                image: kubevirt/rhel8-template:latest
+            disk:
+              bus: virtio
