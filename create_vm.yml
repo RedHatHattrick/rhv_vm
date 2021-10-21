@@ -7,8 +7,6 @@
   vars:
     domain: hattrick.lab
     rhv_vm_auth_url: https://rhvm.hattrick.lab/ovirt-engine/api
-    rhv_vm_auth_username: admin@internal
-    rhv_vm_auth_password: Redhat1993
     rhv_vm_template: rhel84-template
     rhv_vm_instance_type: small
     rhv_vm_basename: rhel-vm

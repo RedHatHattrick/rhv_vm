@@ -5,8 +5,6 @@
   gather_facts: no
   vars:
     rhv_vm_auth_url: https://rhvm.hattrick.lab/ovirt-engine/api
-    rhv_vm_auth_username: admin@internal
-    rhv_vm_auth_password: Redhat1993
     rhv_vm_cluster: Default
     domain: hattrick.lab
     rhv_vm_basename: rhel-vm
