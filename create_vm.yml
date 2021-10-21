@@ -2,7 +2,6 @@
 
 - hosts: rhvm
   user: root
-  become: true
   gather_facts: no
   vars:
     domain: hattrick.lab
