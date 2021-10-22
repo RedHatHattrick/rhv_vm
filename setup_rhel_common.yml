@@ -1,6 +1,6 @@
 ---
 - name: Create DNS Record in IDM
-  hosts: localhost
+  hosts: all
   become: true
   gather_facts: false
   tasks:
