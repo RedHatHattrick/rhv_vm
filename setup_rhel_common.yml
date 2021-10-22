@@ -1,0 +1,9 @@
+---
+- name: Create DNS Record in IDM
+  hosts: localhost
+  become: true
+  gather_facts: false
+  tasks:
+  - name: Setup RHEL VMs
+    include_role:
+      name: rhel_common
