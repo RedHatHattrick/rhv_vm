@@ -8,7 +8,7 @@
     rhv_vm_cluster: Default
     domain: hattrick.lab
     rhv_vm_basename: rhel-vm
-    server_cnt: 2
+    server_cnt: 3
   tasks:
    - name: Login to RHV
      include_role:

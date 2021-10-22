@@ -11,7 +11,7 @@
     rhv_vm_instance_type: small
     rhv_vm_basename: rhel-vm
     ip_range: 192.168.0.5
-    server_cnt: 2
+    server_cnt: 3
   tasks:
     - name: Authenticate to engine to obtain SSO token
       include_role:
