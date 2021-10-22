@@ -3,14 +3,20 @@
   hosts: idm
   become: true
   gather_facts: false
-
+  vars:
+    rhv_vm_basename: rhel-vm
+    ip_range: 192.168.0.5
+    server_cnt: 1
   tasks:
   # Ensure a PTR record is present
   - name: Ensure that {{ rhv_vm_hostname }} has A record
+    vars:
+      rhv_vm_hostname: "{{ rhv_vm_basename }}-{{ item  }}"
+      rhv_vm_public_ip: "{{ ip_range }}{{ item }}"
     ipadnsrecord:
       ipaadmin_password: Redhat1993
       zone_name: hattrick.lab
       records:
       - name: "{{ rhv_vm_hostname }}"
         a_ip_address: "{{ rhv_vm_public_ip }}"
-
+    with_sequence: start=1 end={{ server_cnt }}
