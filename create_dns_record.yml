@@ -9,7 +9,7 @@
     server_cnt: 1
   tasks:
   # Ensure a PTR record is present
-  - name: Ensure that {{ rhv_vm_hostname }} has A record
+  - name: Add A records to IDM
     vars:
       rhv_vm_hostname: "{{ rhv_vm_basename }}-{{ item  }}"
       rhv_vm_public_ip: "{{ ip_range }}{{ item }}"
