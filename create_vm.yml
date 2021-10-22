@@ -10,7 +10,7 @@
     rhv_vm_instance_type: small
     rhv_vm_basename: rhel-vm
     ip_range: 192.168.0.5
-    server_cnt: 3
+    server_cnt: 1
   tasks:
     - name: Authenticate to engine to obtain SSO token
       include_role:
@@ -30,16 +30,3 @@
       include_role:
         name: redhatgov.rhv_vm
         tasks_from: revoke_token
-
-    - name: Add {{ rhv_vm_hostname }} from hosts file
-      delegate_to: localhost
-      connection: local
-      vars:
-        rhv_vm_hostname: "{{ rhv_vm_basename }}-{{ item  }}"
-        rhv_vm_public_ip: "{{ ip_range }}{{ item }}" 
-      lineinfile:
-       path: /etc/hosts
-       state: present
-       line: "{{ rhv_vm_public_ip }} {{ rhv_vm_hostname }}.{{ domain }} {{ rhv_vm_hostname }}"
-      with_sequence: start=1 end={{ server_cnt }}
-
